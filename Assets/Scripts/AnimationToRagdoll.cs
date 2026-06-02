@@ -30,7 +30,7 @@ public class AnimationToRagdoll : MonoBehaviour
         ToggleRagdoll(true);
     }
 
-    private void ToggleRagdoll(bool isAnimation)
+    public void ToggleRagdoll(bool isAnimation)
     {
         activateRagdoll = !isAnimation;
         myCollider.enabled = isAnimation;
