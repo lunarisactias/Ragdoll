@@ -11,7 +11,7 @@ public class Explosion : MonoBehaviour
     [SerializeField] private Vector3 explosionPos = Vector3.zero;
     [SerializeField] private bool explode = false;
 
-    private void Explode()
+    public void Explode()
     {
         if (hips != null)
         {
@@ -22,6 +22,7 @@ public class Explosion : MonoBehaviour
                 if (animationToRagdoll != null)
                 {
                     animationToRagdoll.ToggleRagdoll(false);
+                    animationToRagdoll.StartCoroutine(animationToRagdoll.GetBackUp());
                 }
                 hipsRb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardModifier, ForceMode.Impulse);
             }

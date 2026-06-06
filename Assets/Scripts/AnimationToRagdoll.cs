@@ -7,12 +7,19 @@ public class AnimationToRagdoll : MonoBehaviour
     [SerializeField] private Collider myCollider;
     [SerializeField] private float respawnTime = 5f;
     [SerializeField] private Rigidbody[] myRigidbodies;
+    private Vector3 startingPlace;
     private bool activateRagdoll = false;
 
     private void Start()
     {
+        startingPlace = transform.position;
         myRigidbodies = GetComponentsInChildren<Rigidbody>();
         ToggleRagdoll(true);
+
+        foreach (Rigidbody rb in myRigidbodies)
+        {
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -24,10 +31,11 @@ public class AnimationToRagdoll : MonoBehaviour
         }
     }
 
-    private IEnumerator GetBackUp()
+    public IEnumerator GetBackUp()
     {
         yield return new WaitForSeconds(respawnTime);
         ToggleRagdoll(true);
+        transform.position = startingPlace;
     }
 
     public void ToggleRagdoll(bool isAnimation)
