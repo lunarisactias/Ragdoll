@@ -6,13 +6,13 @@ public class ButtonShark : MonoBehaviour
 {
     public AudioClip buttonClick;
     public AudioClip sharkSound;
-
+    public AudioSource audioSource;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            AudioSource.PlayClipAtPoint(buttonClick, transform.position);
-            AudioSource.PlayClipAtPoint(sharkSound, transform.position);
+            audioSource.PlayOneShot(buttonClick);
+            audioSource.PlayOneShot(sharkSound, 3f);
         }
     }
 }

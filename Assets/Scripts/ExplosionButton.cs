@@ -7,13 +7,15 @@ public class ExplosionButton : MonoBehaviour
     public AudioClip buttonClick;
     public AudioClip explosionSound;
     public GameObject explosionVFX;
+    public AudioSource audioSource;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            AudioSource.PlayClipAtPoint(buttonClick, transform.position);
+            audioSource.PlayOneShot(buttonClick);
             explosionVFX.SetActive(true);
-            AudioSource.PlayClipAtPoint(explosionSound, explosionVFX.transform.position);
+            audioSource.PlayOneShot(explosionSound, 3f);
             GameManagerScript.instance.ExplodeEveryRagdoll();
             StartCoroutine(DeactivateVFX());
         }
